@@ -1,0 +1,47 @@
+skynet_root = "../3rd/skynet/"
+
+local addtion_search_path = {
+	root = "./" 	--service root
+	luaservice = nil
+	lualib = nil
+	luaclib = nil
+	clib = nil
+}
+
+if "$OS" == "Linux" then 
+	--daemon = root .. "$SERVER_NAME" .. ".pid"
+end
+
+logpath = root .. "log/"
+-- logger = "$SERVER_NAME" or "weguess.log"
+-- logservice = "syslog"
+
+harbor = 0
+-- if harbor is not 0 ,you need to set more configration follow this:
+if harbor ~= 0 then
+	address = "127.0.0.1:2526"
+	master = "127.0.0.1:2013"
+	standalone = "0.0.0.0:2013"
+end
+
+-- preload = "./examples/preload.lua"
+snax = skynet_root
+-- snax_interface_g = "snax_g"
+
+---------to change carefully---------
+-- most case you needn't to change confugrations about those following:
+if not skynet_root then
+	print("warrnningskynet_root is nil,will using default value")
+	skynet_root = "./"
+end
+thread = thread or 8
+start = start or "main"						-- main script
+bootstrap = bootstrap or "snlua bootstrap"	-- The service for bootstrap
+
+lua_path = skynet_root .. "./lualib/?.lua;./lualib/?/init.lua"
+lua_cpath = skynet_root .. "./luaclib/?.so"
+luaservice =  skynet_root .. "./service/?.lua"
+cpath = skynet_root .. "./cservice/?.so"
+lualoader = skynet_root.."lualib/loader.lua"
+
+
